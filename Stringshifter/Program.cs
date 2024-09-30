@@ -32,7 +32,8 @@ class Program
             Write("Uppercase:  \"", Upper(input), "\"");
             Write("Camelcase:  \"", Camel(input), "\"");
             Write("Filename:   \"", Filename(input), "\"");
-            Write("Zigzag:     \"", Zigzag(input), "\"");
+            Write("Zigzag A:   \"", Zigzag(input, true), "\"");
+            Write("Zigzag B:   \"", Zigzag(input, false), "\"");
             Write("Upsidedown: \"", UpsideDown(input), "\"");
             Write("Flipped:    \"", Flip(input), "\"");
             Write("Reversed:   \"", Reverse(input), "\"");
@@ -54,7 +55,7 @@ class Program
 
     private static string Reverse(string input)
     {
-        string output = "";
+        string output = string.Empty;
         for (int i = input.Length - 1; i >= 0; i--)
         {
             output += input[i];
@@ -67,12 +68,14 @@ class Program
         return Camel(input).Replace(' ', '-');
     }
 
-    private static string Zigzag(string input)
+    private static string Zigzag(string input, bool firstLetterBig = true)
     {
-        string output = "";
+        string output = string.Empty;
+
         for (int i = 0; i < input.Length; i++)
         {
-            if (i % 2 == 0)
+            if ((firstLetterBig && i % 2 == 0) ||
+                (!firstLetterBig && i % 2 != 0))
             {
                 output += input[i].ToString().ToUpper();
             }
@@ -96,7 +99,7 @@ class Program
 
     private static string Camel(string input)
     {
-        string output = "";
+        string output = string.Empty;
         bool upper = true;
         for (int i = 0; i < input.Length; i++)
         {
