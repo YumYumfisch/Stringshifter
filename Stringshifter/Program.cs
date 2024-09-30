@@ -20,15 +20,13 @@ class Program
             Console.Write("Eingabe: ");
             Console.ForegroundColor = ConsoleColor.White;
             string input = Console.ReadLine().Trim();
-            //input = "Der Gurkensalat ist sehr sehr Toll"; // DEBUG
+
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("Eingabe \"");
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write(input);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\" wurde eingelesen.\r\n");
-
-            //Console.WriteLine("Wähle eine Methode, mit der der String verändert werden soll.");
 
             Write("Lowercase:  \"", Lower(input), "\"");
             Write("Uppercase:  \"", Upper(input), "\"");
@@ -42,11 +40,6 @@ class Program
 
             Console.WriteLine("\r\n");
         }
-
-        Console.ForegroundColor = ConsoleColor.DarkGray;
-        Console.WriteLine("\r\nBeliebige Taste drücken, um das Programm zu beenden.");
-        Console.ForegroundColor = ConsoleColor.Black;
-        _ = Console.ReadKey();
     }
 
     private static void Write(string start, string content, string end)
