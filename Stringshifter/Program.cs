@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Stringshifter;
 
@@ -28,29 +29,36 @@ class Program
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\" wurde eingelesen.\r\n");
 
-            Write("Lowercase:  \"", Lower(input), "\"");
-            Write("Uppercase:  \"", Upper(input), "\"");
-            Write("Camelcase:  \"", Camel(input), "\"");
-            Write("Filename:   \"", Filename(input), "\"");
-            Write("Zigzag A:   \"", Zigzag(input, true), "\"");
-            Write("Zigzag B:   \"", Zigzag(input, false), "\"");
-            Write("Upsidedown: \"", UpsideDown(input), "\"");
-            Write("Flipped:    \"", Flip(input), "\"");
-            Write("Reversed:   \"", Reverse(input), "\"");
-            Write("Discord:    \"", Discord(input), "\"");
+            Write([
+                ("Lowercase", Lower(input)),
+                ("Uppercase", Upper(input)),
+                ("Camelcase", Camel(input)),
+                ("Filename", Filename(input)),
+                ("Zigzag A", Zigzag(input, true)),
+                ("Zigzag B", Zigzag(input, false)),
+                ("Upsidedown", UpsideDown(input)),
+                ("Flipped", Flip(input)),
+                ("Reversed", Reverse(input)),
+                ("Discord", Discord(input))
+            ]);
 
             Console.WriteLine("\r\n");
         }
     }
 
-    private static void Write(string start, string content, string end)
+    private static void Write((string name, string shift)[] shifts)
     {
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.Write(start);
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.Write(content);
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine(end);
+        int namePadding = shifts.Select(shift => shift.name.Length).Max() + 2;
+
+        foreach ((string name, string shift) shift in shifts)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($"{shift.name}:".PadRight(namePadding) + '"');
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(shift.shift);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine('"');
+        }
     }
 
     private static string Reverse(string input)
